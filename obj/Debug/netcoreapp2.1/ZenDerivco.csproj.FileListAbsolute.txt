@@ -1,0 +1,13 @@
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\bin\Debug\netcoreapp2.1\ZenDerivco.deps.json
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\bin\Debug\netcoreapp2.1\ZenDerivco.runtimeconfig.json
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\bin\Debug\netcoreapp2.1\ZenDerivco.runtimeconfig.dev.json
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\bin\Debug\netcoreapp2.1\ZenDerivco.dll
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\bin\Debug\netcoreapp2.1\ZenDerivco.pdb
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\obj\Debug\netcoreapp2.1\ZenDerivco.csproj.CoreCompileInputs.cache
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\obj\Debug\netcoreapp2.1\ZenDerivco.RazorAssemblyInfo.cache
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\obj\Debug\netcoreapp2.1\ZenDerivco.RazorAssemblyInfo.cs
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\obj\Debug\netcoreapp2.1\ZenDerivco.AssemblyInfoInputs.cache
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\obj\Debug\netcoreapp2.1\ZenDerivco.AssemblyInfo.cs
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\obj\Debug\netcoreapp2.1\ZenDerivco.RazorTargetAssemblyInfo.cache
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\obj\Debug\netcoreapp2.1\ZenDerivco.dll
+D:\ZenDerivco\ZenDerivcoService\ZenDerivco\obj\Debug\netcoreapp2.1\ZenDerivco.pdb
