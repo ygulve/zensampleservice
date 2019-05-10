@@ -15,6 +15,7 @@ namespace ZenDerivco.Controllers
    
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     [EnableCors("AllowSpecificOrigin")]
     public class EmployeeController : ControllerBase
     {
