@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,8 +33,15 @@ namespace ZenDerivco
             services.AddDbContext<ZenDerivcoContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ZenDerivco"]));
             services.AddScoped<IDataRepository<Employee>, EmployeeManager>();
             services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+
+            services.AddAuthorization(auth =>
             {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
+                    .RequireAuthenticatedUser().Build());
+            });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {                
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -41,6 +49,7 @@ namespace ZenDerivco
                         .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
                     ValidateIssuer = false,
                     ValidateAudience = false
+                    
                 };
             });
 
@@ -64,8 +73,9 @@ namespace ZenDerivco
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseAuthentication();
             app.UseCors("AllowSpecificOrigin");
-            app.UseMvc();
+            app.UseMvc();           
         }
     }
 }
