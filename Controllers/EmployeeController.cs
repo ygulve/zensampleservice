@@ -13,10 +13,9 @@ using ZenDerivco.Models.Repositroy;
 namespace ZenDerivco.Controllers
 {
    
-    [Route("api/[controller]")]
-    [ApiController]
     [Authorize]
-    [EnableCors("AllowSpecificOrigin")]
+    [Route("api/[controller]")]
+    [ApiController]       
     public class EmployeeController : ControllerBase
     {
         private readonly IDataRepository<Employee> _dataRepository;
@@ -27,10 +26,10 @@ namespace ZenDerivco.Controllers
         }        
         
         [HttpGet]
-        public IActionResult Get()
+        public IEnumerable<Employee> Get()
         {
             IEnumerable<Employee> employees = _dataRepository.GetAll();
-            return Ok(employees);
+            return employees;
         }
 
         [HttpGet("{id}", Name = "Get")]

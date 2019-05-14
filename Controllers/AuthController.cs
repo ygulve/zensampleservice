@@ -53,13 +53,14 @@ namespace ZenDerivco.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.Now.AddDays(1),                
                 SigningCredentials = creds
-
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
+           
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            
 
             return Ok(new { token = tokenHandler.WriteToken(token), email = userFromRepo.Email, fullname = userFromRepo.FirstName + " " + userFromRepo.LastName });
         }
