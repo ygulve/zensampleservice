@@ -36,33 +36,40 @@ namespace ZenDerivco.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] Employee loginDto)
         {
-            var userFromRepo = _repo.Login(loginDto.UserId, loginDto.Password);
-            if (userFromRepo == null)
-                return Unauthorized();
-
-            var claims = new[]
+            try
             {
+                var userFromRepo = _repo.Login(loginDto.UserId, loginDto.Password);
+                if (userFromRepo == null)
+                    return Unauthorized();
+
+                var claims = new[]
+                {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.UserId.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.Email)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8
-                 .GetBytes(_config.GetSection("AppSettings:Token").Value));
+                var key = new SymmetricSecurityKey(Encoding.UTF8
+                     .GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-            var tokenDescriptor = new SecurityTokenDescriptor
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.Now.AddSeconds(30),
+                    SigningCredentials = creds
+                };
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+
+                return Ok(new { token = tokenHandler.WriteToken(token), expiresAt = tokenDescriptor.Expires, email = userFromRepo.Email, fullname = userFromRepo.FirstName + " " + userFromRepo.LastName });
+            }
+            catch (Exception ex)
             {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),                
-                SigningCredentials = creds
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-           
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            
-
-            return Ok(new { token = tokenHandler.WriteToken(token), email = userFromRepo.Email, fullname = userFromRepo.FirstName + " " + userFromRepo.LastName });
+                return Ok(new { error = ex.Message });
+            }
+                       
         }
 
 
